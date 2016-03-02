@@ -2,7 +2,7 @@
 ## A Story About Adventure
 ### By Paul Morales
 
-A very simple Choose Your Own Adventure story.
+A very simple [Choose Your Own Adventure](https://en.wikipedia.org/wiki/Choose_Your_Own_Adventure) story.
 
 [Next](choice:PageOne)
 

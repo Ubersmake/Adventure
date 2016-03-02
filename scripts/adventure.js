@@ -18,6 +18,14 @@ $(document).ready(function() {
     });
 });
 
+$(document).on("click", 'a', function(event) {
+    var href = this.href;
+    if (href.substring(0, 7) === "choice:") {
+        var choice = href.substring(7);
+        displaySection(choice);
+    }
+});
+
 function displaySection(name) {
     var htmlTree = markdown.toHTMLTree(getSection(name));
     var html = markdown.renderJsonML(htmlTree);
