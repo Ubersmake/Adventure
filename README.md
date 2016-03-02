@@ -15,3 +15,17 @@ Adventure treats Markdown as Markdown, with these key differences.
 * There are special links used in Adventure, with the format: `[Chapter One](choice:ChapterOne)` Here, `choice:` is picked up by Adventure, and creates a "link" named "Chapter One" to a section titled `ChapterOne`.
 
 * The first H1 is displayed as the title of the first page.
+
+## To Do
+
+### Implementation
+
+* Use CDN jQuery.
+
+* Use minified markdown-js.
+
+* Move main JS to file, and organize with RequireJS.
+
+### Features
+
+* Track choices and display text based on prior choices.
