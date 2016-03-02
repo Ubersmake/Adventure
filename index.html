@@ -6,12 +6,35 @@
 <script src="./scripts/jquery.js"></script>
 <script src="./scripts/markdown.js"></script>
 <script>
-    var content;
+    var sections = [];
 
     $(document).ready(function() {
         $.get('./adventure.md', function(data) {
-            content = markdown.toHTML(data);
-            $('#content').html(content);
+            var tree = markdown.parse(data);
+
+            var bundle = [];
+            var createNewBundle = false;
+
+            for (var i = 1; i < tree.length; i++) {
+                var branch = tree[i];
+
+                if (branch[0] === "header" && branch[1].level === 1) {
+                    createNewBundle = true;
+                }
+
+                if (createNewBundle === true) {
+                    if (bundle.length > 0) {
+                        sections.push(bundle);
+                        bundle = [];
+                    }
+                    createNewBundle = false;
+                }
+
+                bundle.push(branch);
+            }
+
+            // Last bundle;
+            sections.push(bundle);
         });
     });
 </script>
