@@ -7,6 +7,7 @@
 <script src="./scripts/markdown.js"></script>
 <script>
     var sections = [];
+    var sectionMap = [];
 
     $(document).ready(function() {
         $.get('./adventure.md', function(data) {
@@ -35,6 +36,13 @@
 
             // Last bundle;
             sections.push(bundle);
+
+            for (var i = 0; i < sections.length; i++) {
+                var name = sections[i][0][2];
+                sectionMap[name] = sections[i];
+            }
+
+            $("#content").html(markdown.renderJsonML(markdown.toHTMLTree(sections[0])));
         });
     });
 </script>
