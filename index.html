@@ -5,47 +5,7 @@
 <div id="content"></div>
 <script src="./scripts/jquery.js"></script>
 <script src="./scripts/markdown.js"></script>
-<script>
-    var sections = [];
-    var sectionMap = [];
-
-    $(document).ready(function() {
-        $.get('./adventure.md', function(data) {
-            var tree = markdown.parse(data);
-
-            var bundle = [];
-            bundle.push("markdown");
-            var createNewBundle = false;
-
-            for (var i = 2; i < tree.length; i++) {
-                var branch = tree[i];
-
-                if (branch[0] === "header" && branch[1].level === 1) {
-                    createNewBundle = true;
-                }
-
-                if (createNewBundle === true) {
-                    sections.push(bundle);
-                    bundle = [];
-                    bundle.push("markdown");
-                    createNewBundle = false;
-                }
-
-                bundle.push(branch);
-            }
-
-            // Last bundle;
-            sections.push(bundle);
-
-            for (var i = 0; i < sections.length; i++) {
-                var name = sections[i][1][2];
-                sectionMap[name] = sections[i];
-            }
-
-            $("#content").html(markdown.renderJsonML(markdown.toHTMLTree(sections[0])));
-        });
-    });
-</script>
+<script src="./scripts/adventure.js"></script>
 
 </body>
 </html>

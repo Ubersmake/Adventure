@@ -24,8 +24,6 @@ Adventure treats Markdown as Markdown, with these key differences.
 
 * Use minified markdown-js.
 
-* Move main JS to file, and organize with RequireJS.
-
 ### Features
 
 * Track choices and display text based on prior choices.
