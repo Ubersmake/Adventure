@@ -14,9 +14,10 @@
             var tree = markdown.parse(data);
 
             var bundle = [];
+            bundle.push("markdown");
             var createNewBundle = false;
 
-            for (var i = 1; i < tree.length; i++) {
+            for (var i = 2; i < tree.length; i++) {
                 var branch = tree[i];
 
                 if (branch[0] === "header" && branch[1].level === 1) {
@@ -24,10 +25,9 @@
                 }
 
                 if (createNewBundle === true) {
-                    if (bundle.length > 0) {
-                        sections.push(bundle);
-                        bundle = [];
-                    }
+                    sections.push(bundle);
+                    bundle = [];
+                    bundle.push("markdown");
                     createNewBundle = false;
                 }
 
@@ -38,7 +38,7 @@
             sections.push(bundle);
 
             for (var i = 0; i < sections.length; i++) {
-                var name = sections[i][0][2];
+                var name = sections[i][1][2];
                 sectionMap[name] = sections[i];
             }
 
