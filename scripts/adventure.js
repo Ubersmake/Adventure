@@ -14,6 +14,8 @@ $(document).ready(function() {
         title = branches[0][1][2];
         sections = parseBranches(branches);
 
+        document.title = title;
+
         displaySection(title);
     });
 });
