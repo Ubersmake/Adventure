@@ -19,7 +19,15 @@ $(document).ready(function() {
 });
 
 function displaySection(name) {
-    $("#content").html(markdown.renderJsonML(markdown.toHTMLTree(getSection(name))));
+    var htmlTree = markdown.toHTMLTree(getSection(name));
+    var html = markdown.renderJsonML(htmlTree);
+
+    // Remove H1 if not title
+    if (name !== title) {
+        html = html.replace(/<h1>.+<\/h1>/, "");
+    }
+
+    $("#content").html(html);
 }
 
 function getSection(name) {
