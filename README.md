@@ -18,7 +18,7 @@ Adventure treats Markdown as Markdown, with these key differences:
 
 ### Implementation
 
-* Credits for jQuery and markdown-js.
+* Proper credits for jQuery and markdown-js.
 
 * Story validator.
 
