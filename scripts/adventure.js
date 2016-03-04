@@ -2,12 +2,22 @@
 // Trees have Branches, which are populated with Bundles.
 // Tree-related terminology is only used when processing text.
 
-var story = "./stories/dinner.md";
 var title;
 var sections;
 
 $(document).ready(function() {
-    $.get(story, function(data) {
+    var storyPath = "./stories/";
+    var story = "";
+
+    story = getURLParam("story");
+
+    if (!story) {
+        story = "adventure";
+    }
+
+    storyPath = storyPath + story + ".md";
+
+    $.get(storyPath, function(data) {
         var branches;
 
         branches = parseStory(data);
@@ -91,4 +101,16 @@ function parseStory(data) {
     branches.push(bundle);
 
     return branches;
+}
+
+function getURLParam(param) {
+    var pageURL = window.location.search.substring(1);
+    var pageURLParams = pageURL.split('&');
+
+    for (var i = 0; i < pageURLParams.length; i++) {
+        var paramName = pageURLParams[i].split('=');
+        if (paramName[0] == param) {
+            return paramName[1];
+        }
+    }
 }
