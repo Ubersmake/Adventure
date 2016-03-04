@@ -2,7 +2,7 @@
 // Trees have Branches, which are populated with Bundles.
 // Tree-related terminology is only used when processing text.
 
-var story = "../adventure.md";
+var story = "./stories/dinner.md";
 var title;
 var sections;
 
