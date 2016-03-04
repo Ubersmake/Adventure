@@ -16,6 +16,8 @@ Adventure treats Markdown as Markdown, with these differences:
 
 ## To Do
 
+* A better "Hello World" example.
+
 * Separate Adventure into Core (Parser), Viewer, Editor, and Validator modules.
 
 * Create How To documentation.
@@ -23,6 +25,8 @@ Adventure treats Markdown as Markdown, with these differences:
 ### Core
 
 * Better URL parameter handling for stories.
+
+* Change internal Choice format to prevent browsers from trying to launch application association dialog.
 
 * Track choices.
 
@@ -40,7 +44,7 @@ Adventure treats Markdown as Markdown, with these differences:
 
 * Live edit.
 
-* Publish.
+* Export/Publish.
 
 ### Validator
 
