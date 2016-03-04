@@ -50,7 +50,9 @@ Adventure treats Markdown as Markdown, with these differences:
 
 ### Editor
 
-* TBD
+* Live edit.
+
+* Publish.
 
 ### Validator
 
