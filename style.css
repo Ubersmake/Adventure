@@ -19,3 +19,10 @@ body {
 
     background-color: #efefef;
 }
+#footer #options {
+    float: left;
+}
+
+#footer #notice {
+    text-align: right;
+}
