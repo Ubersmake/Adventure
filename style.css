@@ -1,18 +1,21 @@
-#content {
-    font-size: 150%;
-    line-height: 150%;
+body {
     margin-left: 10%;
     margin-right: 10%;
     margin-top: 5%;
     margin-bottom: 5%;
 }
 
+#content {
+    font-size: 150%;
+    line-height: 150%;
+}
+
 #footer {
     position: absolute;
-    bottom: 0px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1rem;
 
-    line-height: 50%;
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-bottom: 5%;
+    background-color: #efefef;
 }
