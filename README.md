@@ -4,7 +4,7 @@ A Markdown-driven, Choose Your Own Adventure engine. The successor to [Lysithea]
 
 ## Format
 
-Adventure treats Markdown as Markdown, with these key differences:
+Adventure treats Markdown as Markdown, with these differences:
 
 * Sections are defined as all content between H1s, or the last H1 in a file and the end of a file. Sections are effectively pages, and define all text that can be displayed to the reader at a given moment.
 
@@ -12,20 +12,48 @@ Adventure treats Markdown as Markdown, with these key differences:
 
 * H1s are used internally as section names.
 
-* There are special links used in Adventure, with the format: `[Chapter One](choice:ChapterOne)` Here, `choice:` is picked up by Adventure, and creates a "link" named "Chapter One" to a section titled `ChapterOne`. Clicking on this link loads the content of the section titled `ChapterOne`.
+* Choices are implemented like Markdown links, with the format: `[Chapter One](choice:ChapterOne)` Here, `choice:` is picked up by Adventure, and displays a "link" named "Chapter One" to a section titled `ChapterOne`. Clicking on this link loads the content of the section titled `ChapterOne`.
 
 ## To Do
 
-### Implementation
+* Separate Adventure into Core (Parser), Viewer, Editor, and Validator modules.
 
-* Proper credits for jQuery and markdown-js.
+* Create How To documentation.
 
-* Story validator.
+### Core
 
-* Tests.
+* Better URL parameter handling for stories.
 
-### Features
+* Track choices.
 
-* Track choices and display text based on prior choices.
+* Display text based on previous choices.
 
-* Allow choices to set and modify variables, which can be used to show or hide text.
+* Implement "back" behavior. Style previously chosen choices.
+
+### Viewer
+
+* Fix footer overlap issue.
+
+* Implement selectable CSS style.
+
+    * Sans.
+
+    * Serif.
+
+    * Monotype.
+
+* Implement selectable color schemes.
+
+    * Light
+
+    * Dark
+
+### Editor
+
+* TBD
+
+### Validator
+
+* Verify at least one section exists.
+
+* All sections are reachable.
