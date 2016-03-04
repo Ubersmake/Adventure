@@ -32,8 +32,6 @@ Adventure treats Markdown as Markdown, with these differences:
 
 ### Viewer
 
-* Fix footer overlap issue.
-
 * Implement selectable CSS style.
 
     * Sans.
