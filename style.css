@@ -1,7 +1,7 @@
 body {
     margin-left: 10%;
     margin-right: 10%;
-    margin-top: 5%;
+    margin-top: 10%;
     margin-bottom: 5%;
 }
 
@@ -17,8 +17,13 @@ body {
     bottom: 0;
     padding: 1rem;
 
-    background-color: #efefef;
+    color: #424242;
 }
+
+#footer a {
+    color: #212121;
+}
+
 #footer #options {
     float: left;
 }
