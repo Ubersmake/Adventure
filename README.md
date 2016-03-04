@@ -28,23 +28,13 @@ Adventure treats Markdown as Markdown, with these differences:
 
 * Display text based on previous choices.
 
-* Implement "back" behavior. Style previously chosen choices.
+* Implement "back" behavior.
 
 ### Viewer
 
-* Implement selectable CSS style.
+* Footer overlap issue.
 
-    * Sans.
-
-    * Serif.
-
-    * Monotype.
-
-* Implement selectable color schemes.
-
-    * Light
-
-    * Dark
+* Monospace that's actually monospaced.
 
 ### Editor
 

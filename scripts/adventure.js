@@ -4,7 +4,7 @@
 
 var title;
 var sections;
-var style = "sans";
+var style = "serif";
 var theme = "light";
 
 $(document).ready(function() {
@@ -119,12 +119,10 @@ function parseStory(data) {
 }
 
 function changeStyle() {
-    if (style === "sans") {
-        $("#content").css("font-family", "sans-serif");
-    } else if (style === "serif") {
-        $("#content").css("font-family", "serif");
-    } else if (style === "mono") {
-        $("#content").css("font-family", "monospace");
+    if (style === "serif") {
+        $("#content").css("font-family", "Garamond, Palatino, Times, serif");
+    } else if (style === "sans") {
+        $("#content").css("font-family", "Arial, Helvetica, sans-serif");
     }
 }
 
@@ -136,8 +134,6 @@ function changeTheme() {
         $("#content a").css("color", "#212121");
 
         $("#footer").css("background-color", "#9E9E9E");
-
-
     } else if (theme === "dark") {
         $("body").css("background-color", "#212121");
 
