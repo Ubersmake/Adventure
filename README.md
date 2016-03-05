@@ -26,8 +26,6 @@ Adventure treats Markdown as Markdown, with these differences:
 
 * Better URL parameter handling for stories.
 
-* Change internal Choice format to prevent browsers from trying to launch application association dialog.
-
 * Track choices.
 
 * Display text based on previous choices.

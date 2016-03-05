@@ -43,9 +43,8 @@ $(document).ready(function() {
 });
 
 $(document).on("click", 'a', function(event) {
-    var href = this.href;
-    if (href.substring(0, 7) === "choice:") {
-        var choice = href.substring(7);
+    var choice = $(this).attr("choice");
+    if (choice) {
         displaySection(choice);
     }
 });
@@ -99,6 +98,18 @@ function parseStory(data) {
             createNewBundle = true;
         } else {
             titleHeader = false;
+        }
+
+        // Find choices implemented as links.
+        for (var j = 0; j < branch.length; j++) {
+            if (branch[j].length > 0 && branch[j][0] === "link") {
+                var attributes = branch[j][1];
+                if (attributes["href"].substring(0, 7) === "choice:") {
+                     var choice = attributes["href"].substring(7);
+                     branch[j][1]["href"] = "#";
+                     branch[j][1]["choice"] = choice;
+                }
+            }
         }
 
         if (createNewBundle === true) {
