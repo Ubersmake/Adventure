@@ -3,6 +3,7 @@
 // Tree-related terminology is only used when processing text.
 
 var title;
+var choices = [];
 var sections;
 var style = "serif";
 var theme = "light";
@@ -45,6 +46,7 @@ $(document).ready(function() {
 $(document).on("click", 'a', function(event) {
     var choice = $(this).attr("choice");
     if (choice) {
+        choices.push(choice);
         displaySection(choice);
     }
 });
@@ -165,7 +167,7 @@ function getURLParam(param) {
         var paramName = pageURLParams[i].split('=');
         if (paramName[0] == param) {
             var story = paramName[1];
-            if (/^[\/\.]*$/.test(story) == true) {
+            if (/[\/\.]/.test(story) === false) {
                 return story;
             }
         }

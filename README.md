@@ -24,8 +24,6 @@ Adventure treats Markdown as Markdown, with these differences:
 
 ### Core
 
-* Track choices.
-
 * Display text based on previous choices.
 
 * Implement "back" behavior.
