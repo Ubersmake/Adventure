@@ -24,8 +24,6 @@ Adventure treats Markdown as Markdown, with these differences:
 
 ### Core
 
-* Better URL parameter handling for stories.
-
 * Track choices.
 
 * Display text based on previous choices.

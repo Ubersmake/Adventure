@@ -105,9 +105,11 @@ function parseStory(data) {
             if (branch[j].length > 0 && branch[j][0] === "link") {
                 var attributes = branch[j][1];
                 if (attributes["href"].substring(0, 7) === "choice:") {
-                     var choice = attributes["href"].substring(7);
-                     branch[j][1]["href"] = "#";
-                     branch[j][1]["choice"] = choice;
+                    var choice = attributes["href"].substring(7);
+                    branch[j][1]["href"] = "#";
+                    branch[j][1]["choice"] = choice;
+                } else {
+                    branch[j][1]["target"] = "_blank";
                 }
             }
         }
@@ -162,7 +164,10 @@ function getURLParam(param) {
     for (var i = 0; i < pageURLParams.length; i++) {
         var paramName = pageURLParams[i].split('=');
         if (paramName[0] == param) {
-            return paramName[1];
+            var story = paramName[1];
+            if (/^[\/\.]*$/.test(story) == true) {
+                return story;
+            }
         }
     }
 }
