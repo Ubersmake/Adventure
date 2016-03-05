@@ -28,10 +28,6 @@ Adventure treats Markdown as Markdown, with these differences:
 
 * Implement "back" behavior.
 
-### Viewer
-
-* Monospace that's actually monospaced.
-
 ### Editor
 
 * Live edit.

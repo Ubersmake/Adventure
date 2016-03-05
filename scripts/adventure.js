@@ -3,6 +3,7 @@
 // Tree-related terminology is only used when processing text.
 
 var title;
+var page;
 var choices = [];
 var sections;
 var style = "serif";
@@ -11,7 +12,7 @@ var theme = "light";
 $(document).ready(function() {
     $("#style").change(function() {
         style = $("#style option:selected").val();
-        changeStyle();
+        displaySection(page);
     });
 
     $("#theme").change(function() {
@@ -39,6 +40,7 @@ $(document).ready(function() {
 
         document.title = title;
 
+        page = title;
         displaySection(title);
     });
 });
@@ -60,10 +62,21 @@ function displaySection(name) {
         html = html.replace(/<h1>.+<\/h1>/, "");
     }
 
+    if (style === "mono") {
+        html = html.replace(/<h1>(.+)<\/h1>/, "<strong>$1</strong></p>");
+        html = html.replace(/<h2>(.+)<\/h2>/, "<strong>$1</strong></p>");
+        html = html.replace(/<h3>(.+)<\/h3>/, "<strong>$1</strong></p>");
+        html = html.replace(/<h4>(.+)<\/h4>/, "<strong>$1</strong></p>");
+        html = html.replace(/<h5>(.+)<\/h5>/, "<strong>$1</strong></p>");
+        html = html.replace(/<h6>(.+)<\/h6>/, "<strong>$1</strong></p>");
+    }
+
     $("#content").html(html);
 
     changeStyle();
     changeTheme();
+
+    page = name;
 }
 
 function getSection(name) {
@@ -138,6 +151,8 @@ function changeStyle() {
         $("#content").css("font-family", "Garamond, Palatino, Times, serif");
     } else if (style === "sans") {
         $("#content").css("font-family", "Arial, Helvetica, sans-serif");
+    } else if (style === "mono") {
+        $("#content").css("font-family", "'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace");
     }
 }
 
