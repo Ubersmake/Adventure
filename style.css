@@ -1,11 +1,20 @@
-body {
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-top: 10%;
-    margin-bottom: 5%;
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#wrapper {
+	min-height: 100%;
+	position: relative;
 }
 
 #content {
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 5%;
+    padding-bottom: 1em;
+
     font-size: 150%;
     line-height: 150%;
 }
@@ -15,8 +24,9 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    padding: 1rem;
+    padding: 1em;
 
+    height: 1em;
     color: #424242;
 }
 

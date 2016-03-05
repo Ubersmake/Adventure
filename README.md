@@ -30,8 +30,6 @@ Adventure treats Markdown as Markdown, with these differences:
 
 ### Viewer
 
-* Footer overlap issue.
-
 * Monospace that's actually monospaced.
 
 ### Editor
