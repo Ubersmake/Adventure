@@ -22,10 +22,6 @@ Adventure treats Markdown as Markdown, with these differences:
 
 ### Core
 
-* Implement Back warning.
-
-* Handle back action from anchors.
-
 * Display text based on previous choices.
 
 ### Editor

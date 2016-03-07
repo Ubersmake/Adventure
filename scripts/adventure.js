@@ -7,7 +7,14 @@ var type = "serif";
 var theme = "light";
 
 // Initialize Adventure.
+
 $(document).ready(function() {
+    // Do not allow hashes on first load.
+    if (window.location.hash) {
+        window.location.hash = "";
+        document.location.reload();
+    }
+    
     // Handler for Choices.
     $(document).on("click", 'a', function(event) {
         var choice = $(this).attr("choice");
@@ -31,6 +38,15 @@ $(document).ready(function() {
         theme = $("#theme option:selected").val();
         applyTheme(theme);
     });
+
+    // "Back" handlers.
+    window.onbeforeunload = function() {
+        handleBack();
+    }
+
+    window.onhashchange = function() {
+        handleBack();
+    }
 
     // Get and display story.
     getStory();
@@ -167,7 +183,7 @@ function parseBranchLinks(branch) {
 
             if (attributes["href"].substring(0, 7) === "choice:") {
                 var choice = attributes["href"].substring(7);
-                branch[i][1]["href"] = "#";
+                branch[i][1]["href"] = "#choice";
                 branch[i][1]["choice"] = choice;
             } else {
                 branch[i][1]["target"] = "_blank";
@@ -199,6 +215,21 @@ function getURLParam(param) {
             var story = paramName[1];
             if (/[\/\.]/.test(story) === false) {
                 return story;
+            }
+        }
+    }
+}
+
+function handleBack() {
+    if (choices.length > 0) {
+        var hashIndex = window.location.href.indexOf('#choice');
+        if (hashIndex < 0) {
+            var restart = confirm("Your Adventure is still in progress. Would you like to return to the beginning?");
+            if (restart) {
+                document.location.reload(true);
+            } else {
+                window.location.hash = "choice";
+                displaySection(currentSection);
             }
         }
     }
