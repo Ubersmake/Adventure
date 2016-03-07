@@ -16,17 +16,17 @@ Adventure treats Markdown as Markdown, with these differences:
 
 ## To Do
 
-* A better "Hello World" example.
-
 * Separate Adventure into Core (Parser), Viewer, Editor, and Validator modules.
+
+* A better "Hello World" example.
 
 * Create How To documentation.
 
 ### Core
 
-* Display text based on previous choices.
+* Implement Back warning.
 
-* Implement "back" behavior.
+* Display text based on previous choices.
 
 ### Editor
 
