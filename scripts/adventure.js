@@ -1,25 +1,96 @@
-// Stories have Sections, which are defined by H1s.
-// Trees have Branches, which are populated with Bundles.
-// Tree-related terminology is only used when processing text.
-
 var title;
-var page;
+var sections = [];
+var currentSection;
 var choices = [];
-var sections;
-var style = "serif";
+
+var type = "serif";
 var theme = "light";
 
+// Initialize Adventure.
 $(document).ready(function() {
-    $("#style").change(function() {
-        style = $("#style option:selected").val();
-        displaySection(page);
+    // Handler for Choices.
+    $(document).on("click", 'a', function(event) {
+        var choice = $(this).attr("choice");
+        if (choice) {
+            choices.push(choice);
+            currentSection = choice;
+            displaySection(choice);
+        }
+    });
+
+    // Handlers for Type and Theme menus.
+    $("#type").change(function() {
+        type = $("#type option:selected").val();
+        // Content must be refreshed to apply a new type.
+        // Monospace requires removal of heading tags.
+        // Non-monospace requires re-application of headings.
+        displaySection(currentSection);
     });
 
     $("#theme").change(function() {
         theme = $("#theme option:selected").val();
-        changeTheme();
+        applyTheme(theme);
     });
 
+    // Get and display story.
+    getStory();
+});
+
+// Viewer functions.
+function displaySection(name) {
+    var htmlTree = markdown.toHTMLTree(sections[name]);
+    var html = markdown.renderJsonML(htmlTree);
+
+    // Remove H1 if not title.
+    if (name !== title) {
+        html = html.replace(/<h1>.+<\/h1>/, "");
+    }
+
+    $("#content").html(html);
+    applyType(type);
+    applyTheme(theme);
+}
+
+function applyType(type) {
+    if (type === "serif") {
+        $("#content").css("font-family", "Garamond, Palatino, Times, serif");
+    } else if (type === "sans") {
+        $("#content").css("font-family", "Arial, Helvetica, sans-serif");
+    } else if (type === "mono") {
+        // Strip out headings and replace with something comparable when using
+        // a monospaced style.
+        var content = $("#content").html();
+
+        content = content.replace(/<h1>(.+)<\/h1>/, "<strong>$1</strong></p>");
+        content = content.replace(/<h2>(.+)<\/h2>/, "<strong>$1</strong></p>");
+        content = content.replace(/<h3>(.+)<\/h3>/, "<strong>$1</strong></p>");
+        content = content.replace(/<h4>(.+)<\/h4>/, "<strong>$1</strong></p>");
+        content = content.replace(/<h5>(.+)<\/h5>/, "<strong>$1</strong></p>");
+        content = content.replace(/<h6>(.+)<\/h6>/, "<strong>$1</strong></p>");
+
+        $("#content").html(content);
+
+        $("#content").css("font-family", "'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace");
+    }
+}
+
+function applyTheme(theme) {
+    if (theme === "light") {
+        $("body").css("background-color", "#EEEEEE");
+        $("#content").css("color", "#424242");
+        $("#content a").css("color", "#212121");
+        $("#footer").css("background-color", "#9E9E9E");
+    } else if (theme === "dark") {
+        $("body").css("background-color", "#212121");
+        $("#content").css("color", "#BDBDBD");
+        $("#content a").css("color", "#FAFAFA");
+        $("#footer").css("background-color", "#9E9E9E");
+    }
+}
+
+// Core (Parser) functions.
+function getStory() {
+    // Default to "./stories/adventure.md".
     var storyPath = "./stories/";
     var story = "";
 
@@ -31,6 +102,9 @@ $(document).ready(function() {
 
     storyPath = storyPath + story + ".md";
 
+    // Stories have Sections, which are defined by H1s.
+    // Trees have Branches, which are populated with Bundles.
+    // Tree-related terminology is only used when processing text.
     $.get(storyPath, function(data) {
         var branches;
 
@@ -39,48 +113,67 @@ $(document).ready(function() {
         sections = parseBranches(branches);
 
         document.title = title;
-
-        page = title;
+        currentSection = title;
         displaySection(title);
     });
-});
-
-$(document).on("click", 'a', function(event) {
-    var choice = $(this).attr("choice");
-    if (choice) {
-        choices.push(choice);
-        displaySection(choice);
-    }
-});
-
-function displaySection(name) {
-    var htmlTree = markdown.toHTMLTree(getSection(name));
-    var html = markdown.renderJsonML(htmlTree);
-
-    // Remove H1 if not title
-    if (name !== title) {
-        html = html.replace(/<h1>.+<\/h1>/, "");
-    }
-
-    if (style === "mono") {
-        html = html.replace(/<h1>(.+)<\/h1>/, "<strong>$1</strong></p>");
-        html = html.replace(/<h2>(.+)<\/h2>/, "<strong>$1</strong></p>");
-        html = html.replace(/<h3>(.+)<\/h3>/, "<strong>$1</strong></p>");
-        html = html.replace(/<h4>(.+)<\/h4>/, "<strong>$1</strong></p>");
-        html = html.replace(/<h5>(.+)<\/h5>/, "<strong>$1</strong></p>");
-        html = html.replace(/<h6>(.+)<\/h6>/, "<strong>$1</strong></p>");
-    }
-
-    $("#content").html(html);
-
-    changeStyle();
-    changeTheme();
-
-    page = name;
 }
 
-function getSection(name) {
-    return sections[name];
+function parseStory(data) {
+    var tree = markdown.parse(data);
+    var branches = [];
+
+    var bundle = [];
+    // For markdown-js' renderer.
+    bundle.push("markdown");
+
+    var titleHeader = true;
+    var createNewBundle = false;
+
+    // tree[0] = "markdown".
+    for (var i = 1; i < tree.length; i++) {
+        var branch = tree[i];
+
+        if (branch[0] === "header" && branch[1].level === 1 && !titleHeader) {
+            createNewBundle = true;
+        } else {
+            titleHeader = false;
+        }
+
+        // Find choices implemented as links.
+        parseBranchLinks(branch);
+
+        if (createNewBundle === true) {
+            branches.push(bundle);
+
+            // Prepare new bundle
+            bundle = [];
+            bundle.push("markdown");
+            createNewBundle = false;
+        }
+
+        bundle.push(branch);
+    }
+
+    // Last bundle.
+    branches.push(bundle);
+
+    return branches;
+}
+
+function parseBranchLinks(branch) {
+    for (var i = 0; i < branch.length; i++) {
+        if (branch[i].length > 0 && branch[i][0] === "link") {
+            var attributes = branch[i][1];
+
+            if (attributes["href"].substring(0, 7) === "choice:") {
+                var choice = attributes["href"].substring(7);
+                branch[i][1]["href"] = "#";
+                branch[i][1]["choice"] = choice;
+            } else {
+                branch[i][1]["target"] = "_blank";
+            }
+        }
+    }
 }
 
 function parseBranches(branches) {
@@ -94,86 +187,7 @@ function parseBranches(branches) {
     return sections;
 }
 
-function parseStory(data) {
-    var tree = markdown.parse(data);
-    var branches = [];
-
-    var bundle = [];
-    // For markdown-js' renderer
-    bundle.push("markdown");
-
-    var titleHeader = true;
-    var createNewBundle = false;
-
-    // tree[0] = "markdown"
-    for (var i = 1; i < tree.length; i++) {
-        var branch = tree[i];
-
-        if (branch[0] === "header" && branch[1].level === 1 && !titleHeader) {
-            createNewBundle = true;
-        } else {
-            titleHeader = false;
-        }
-
-        // Find choices implemented as links.
-        for (var j = 0; j < branch.length; j++) {
-            if (branch[j].length > 0 && branch[j][0] === "link") {
-                var attributes = branch[j][1];
-                if (attributes["href"].substring(0, 7) === "choice:") {
-                    var choice = attributes["href"].substring(7);
-                    branch[j][1]["href"] = "#";
-                    branch[j][1]["choice"] = choice;
-                } else {
-                    branch[j][1]["target"] = "_blank";
-                }
-            }
-        }
-
-        if (createNewBundle === true) {
-            branches.push(bundle);
-
-            bundle = [];
-            bundle.push("markdown");
-            createNewBundle = false;
-        }
-
-        bundle.push(branch);
-    }
-
-    // Last bundle
-    branches.push(bundle);
-
-    return branches;
-}
-
-function changeStyle() {
-    if (style === "serif") {
-        $("#content").css("font-family", "Garamond, Palatino, Times, serif");
-    } else if (style === "sans") {
-        $("#content").css("font-family", "Arial, Helvetica, sans-serif");
-    } else if (style === "mono") {
-        $("#content").css("font-family", "'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace");
-    }
-}
-
-function changeTheme() {
-    if (theme === "light") {
-        $("body").css("background-color", "#EEEEEE");
-
-        $("#content").css("color", "#424242");
-        $("#content a").css("color", "#212121");
-
-        $("#footer").css("background-color", "#9E9E9E");
-    } else if (theme === "dark") {
-        $("body").css("background-color", "#212121");
-
-        $("#content").css("color", "#BDBDBD");
-        $("#content a").css("color", "#FAFAFA");
-
-        $("#footer").css("background-color", "#9E9E9E");
-    }
-}
-
+// Utility functions.
 function getURLParam(param) {
     var pageURL = window.location.search.substring(1);
     var pageURLParams = pageURL.split('&');
@@ -181,6 +195,7 @@ function getURLParam(param) {
     for (var i = 0; i < pageURLParams.length; i++) {
         var paramName = pageURLParams[i].split('=');
         if (paramName[0] == param) {
+            // Do not allow paths in story parameter.
             var story = paramName[1];
             if (/[\/\.]/.test(story) === false) {
                 return story;
