@@ -3,6 +3,9 @@ var sections = [];
 var currentSection;
 var choices = [];
 
+var edit;
+var source;
+
 var type = "serif";
 var theme = "light";
 
@@ -14,7 +17,7 @@ $(document).ready(function() {
         window.location.hash = "";
         document.location.reload();
     }
-    
+
     // Handler for Choices.
     $(document).on("click", 'a', function(event) {
         var choice = $(this).attr("choice");
@@ -46,6 +49,20 @@ $(document).ready(function() {
 
     window.onhashchange = function() {
         handleBack();
+    }
+
+    // Show or hide editor.
+    if (getURLParam("edit") === "true") {
+        edit = true;
+
+        $('#writer').bind('input propertychange', function() {
+            parseSource($("#writer").val());
+            displaySection(currentSection);
+        });
+
+    } else {
+        edit = false;
+        $("#editor").hide();
     }
 
     // Get and display story.
@@ -104,6 +121,11 @@ function applyTheme(theme) {
     }
 }
 
+// Editor functions
+function initializeEditor() {
+    $("#writer").text(source);
+}
+
 // Core (Parser) functions.
 function getStory() {
     // Default to "./stories/adventure.md".
@@ -122,16 +144,24 @@ function getStory() {
     // Trees have Branches, which are populated with Bundles.
     // Tree-related terminology is only used when processing text.
     $.get(storyPath, function(data) {
-        var branches;
-
-        branches = parseStory(data);
-        title = branches[0][1][2];
-        sections = parseBranches(branches);
+        parseSource(data);
 
         document.title = title;
         currentSection = title;
         displaySection(title);
+
+        // Do this here. Don't grab the source twice.
+        if (edit) {
+            source = data;
+            initializeEditor();
+        }
     });
+}
+
+function parseSource(data) {
+    var branches = parseStory(data);
+    title = branches[0][1][2];
+    sections = parseBranches(branches);
 }
 
 function parseStory(data) {

@@ -19,6 +19,17 @@ html, body {
     line-height: 150%;
 }
 
+#editor {
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 5%;
+    padding-bottom: 1em;
+}
+
+#writer {
+    width: 100%;
+}
+
 #footer {
     position: absolute;
     left: 0;
