@@ -3,7 +3,7 @@ var sections = [];
 var currentSection;
 var choices = [];
 
-var edit;
+var edit = false;
 var source;
 
 var type = "serif";
@@ -54,13 +54,11 @@ $(document).ready(function() {
     // Show or hide editor.
     if (getURLParam("edit") === "true") {
         edit = true;
-
+        $("#content").css("width", "50%");
+        $("#editor").show();
         $('#writer').bind('input propertychange', function() {
             updateEditor();
         });
-    } else {
-        edit = false;
-        $("#editor").hide();
     }
 
     // Get and display story.
@@ -122,8 +120,6 @@ function applyTheme(theme) {
 // Editor functions
 function initializeEditor() {
     $("#writer").text(source);
-
-    
 }
 
 function updateEditor() {

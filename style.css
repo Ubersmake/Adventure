@@ -2,32 +2,46 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+
+    min-width: 600px;
 }
 
-#wrapper {
-	min-height: 100%;
-	position: relative;
+#outerwrapper {
+	height: 100%;
+    width: 100%;
+}
+
+#innerwrapper {
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+
+    height: 100%;
+    width: 80%;
+
+    display: table;
 }
 
 #content {
-    padding-left: 10%;
-    padding-right: 10%;
-    padding-top: 5%;
-    padding-bottom: 1em;
-
     font-size: 150%;
     line-height: 150%;
+
+    float: left;
+    height: 100%;
 }
 
 #editor {
-    padding-left: 10%;
-    padding-right: 10%;
-    padding-top: 5%;
-    padding-bottom: 1em;
+    float: right;
+    height: 100%;
+    width: 40%;
 }
 
-#writer {
-    width: 100%;
+#editor textarea {
+    resize: none;
+
+    height:80%;
+    width:100%;
 }
 
 #footer {
@@ -37,7 +51,6 @@ html, body {
     bottom: 0;
     padding: 1em;
 
-    height: 1em;
     color: #424242;
 }
 
