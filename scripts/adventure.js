@@ -122,9 +122,11 @@ function applyTheme(theme) {
 // Editor functions
 function initializeEditor() {
     $("#writer").text(source);
+
+    
 }
 
-function updateEditor() {    
+function updateEditor() {
     // Breaks when H1s change.
     // Will probably break if there are images in text.
     // Will probably break when the source text is the Aeneid.

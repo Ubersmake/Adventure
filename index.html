@@ -9,33 +9,31 @@
 </head>
 <body>
 
-<div id="wrapper">
-<div id="content">
-</div>
+<div id="outerwrapper">
+    <div id="innerwrapper">
+        <div id="content"></div>
+        <div id="editor">
+            <textarea id="writer"></textarea>
+        </div>
+    </div> <!-- #innerwrapper -->
+    <div id="footer">
+        <div id="options">
+            <select id="type">
+                <option value="serif" selected="selected">Serif</option>
+                <option value="sans">Sans</option>
+                <option value="mono">Mono</option>
+            </select>
+            <select id="theme">
+                <option value="light" selected="selected">Light</option>
+                <option value="dark">Dark</option>
+            </select>
+        </div>
 
-<div id="editor">
-    <textarea id="writer"></textarea>
-</div>
-
-
-<div id="footer">
-    <div id="options">
-        <select id="type">
-            <option value="serif" selected="selected">Serif</option>
-            <option value="sans">Sans</option>
-            <option value="mono">Mono</option>
-        </select>
-        <select id="theme">
-            <option value="light" selected="selected">Light</option>
-            <option value="dark">Dark</option>
-        </select>
+        <div id="notice">
+            <a href="https://github.com/ubersmake/adventure" target="_blank">Adventure</a>. Powered by <a href="https://jquery.com/" target="_blank">jQuery</a> and <a href="https://github.com/evilstreak/markdown-js" target="_blank">markdown-js</a>.
+        </div>
     </div>
-
-    <div id="notice">
-        <a href="https://github.com/ubersmake/adventure" target="_blank">Adventure</a>. Powered by <a href="https://jquery.com/" target="_blank">jQuery</a> and <a href="https://github.com/evilstreak/markdown-js" target="_blank">markdown-js</a>.
-    </div>
-</div>
-</div>
+</div> <!-- #outerwrapper -->
 
 </body>
 </html>
