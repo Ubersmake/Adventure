@@ -1,10 +1,10 @@
 # Adventure
 
-A Markdown-driven, Choose Your Own Adventure engine. The successor to [Lysithea](https://github.com/ubersmake/lysithea).
+A Markdown-driven, Choose Your Own Adventure-inspired, interactive story engine. The successor to [Lysithea](https://github.com/ubersmake/lysithea).
 
 ## Format
 
-Adventure treats Markdown as Markdown, with these differences:
+Adventure treats Markdown as Markdown. However, it does the following differently, in order to make interactive stories possible:
 
 * Sections are defined as all content between H1s, or the last H1 in a file and the end of a file. Sections are effectively pages, and define all text that can be displayed to the reader at a given moment.
 
@@ -12,7 +12,7 @@ Adventure treats Markdown as Markdown, with these differences:
 
 * H1s are used internally as section names.
 
-* Choices are implemented like Markdown links, with the format: `[Chapter One](choice:ChapterOne)` Here, `choice:` is picked up by Adventure, and displays a "link" named "Chapter One" to a section titled `ChapterOne`. Clicking on this link loads the content of the section titled `ChapterOne`.
+* Choices are implemented like Markdown links, with the format: `[II](choice:Chapter Two)` Here, "choice:" is picked up by Adventure, which displays a link labeled "II". Clicking on this link loads the content of the section titled "Chapter Two". Destinations are case (and space) sensitive.
 
 ## To Do
 

@@ -56,13 +56,8 @@ $(document).ready(function() {
         edit = true;
 
         $('#writer').bind('input propertychange', function() {
-            // Breaks when H1s change.
-            // Will probably break if there are images in text.
-            // Will probably break when the source text is the Aeneid.
-            parseSource($("#writer").val());
-            displaySection(currentSection);
+            updateEditor();
         });
-
     } else {
         edit = false;
         $("#editor").hide();
@@ -127,6 +122,14 @@ function applyTheme(theme) {
 // Editor functions
 function initializeEditor() {
     $("#writer").text(source);
+}
+
+function updateEditor() {    
+    // Breaks when H1s change.
+    // Will probably break if there are images in text.
+    // Will probably break when the source text is the Aeneid.
+    parseSource($("#writer").val());
+    displaySection(currentSection);
 }
 
 // Core (Parser) functions.
