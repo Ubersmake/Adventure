@@ -32,7 +32,9 @@ Adventure treats Markdown as Markdown. However, it requires the following change
 
 * Deal with extremely long, Aeneid-length sources.
 
-* Export/Publish.
+* Export current source to text file.
+
+* Publish current source to packaged file, including HTML and all necessary JS.
 
 ### Validator
 
