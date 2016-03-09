@@ -26,7 +26,11 @@ Adventure treats Markdown as Markdown. However, it requires the following change
 
 ### Editor
 
-* Live edit.
+* Deal with H1s. Either lock section names, or figure out how to make them mutable without breaking things.
+
+* Deal with images. Maybe add a delay before refresh.
+
+* Deal with extremely long, Aeneid-length sources.
 
 * Export/Publish.
 

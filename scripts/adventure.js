@@ -75,7 +75,7 @@ function displaySection(name) {
         html = html.replace(/<h1>.+<\/h1>/, "");
     }
 
-    $("#content").html(html);
+    $("#content").html(html.trim());
     applyType(type);
     applyTheme(theme);
 }
@@ -97,7 +97,7 @@ function applyType(type) {
         content = content.replace(/<h5>(.+)<\/h5>/, "<strong>$1</strong></p>");
         content = content.replace(/<h6>(.+)<\/h6>/, "<strong>$1</strong></p>");
 
-        $("#content").html(content);
+        $("#content").html(content.trim());
 
         $("#content").css("font-family", "'Courier New', Courier, 'Lucida Sans Typewriter', 'Lucida Typewriter', monospace");
     }
@@ -123,9 +123,6 @@ function initializeEditor() {
 }
 
 function updateEditor() {
-    // Breaks when H1s change.
-    // Will probably break if there are images in text.
-    // Will probably break when the source text is the Aeneid.
     parseSource($("#writer").val());
     displaySection(currentSection);
 }
