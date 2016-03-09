@@ -36,10 +36,18 @@ html, body {
     float: right;
 }
 
-#editor textarea {
+#editor #writer {
     height:80%;
     width:100%;
     resize: none;
+}
+
+#editor #links {
+    text-align: right;
+}
+
+#editor #links a {
+    color: #212121;
 }
 
 #footer {

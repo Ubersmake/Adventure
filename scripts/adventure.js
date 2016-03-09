@@ -19,7 +19,7 @@ $(document).ready(function() {
     }
 
     // Handler for Choices.
-    $(document).on("click", 'a', function(event) {
+    $(document).on("click", "#content a", function(event) {
         var choice = $(this).attr("choice");
         if (choice) {
             choices.push(choice);
@@ -54,11 +54,6 @@ $(document).ready(function() {
     // Show or hide editor.
     if (getURLParam("edit") === "true") {
         edit = true;
-        $("#content").css("width", "50%");
-        $("#editor").show();
-        $('#writer').bind('input propertychange', function() {
-            updateEditor();
-        });
     }
 
     // Get and display story.
@@ -119,12 +114,41 @@ function applyTheme(theme) {
 
 // Editor functions
 function initializeEditor() {
+    // Show the editor.
+    $("#content").css("width", "50%");
+    $("#editor").show();
+
+    // Make the editor useful.
+    $("#writer").bind("input propertychange", function() {
+        updateEditor();
+    });
+
+    // Add the source to the editor.
     $("#writer").text(source);
+
+    // Handler for the download link.
+    $(document).on("click", "#editor #links #download", function(event) {
+        event.preventDefault();
+        downloadEditorSource();
+    });
 }
 
 function updateEditor() {
-    parseSource($("#writer").val());
+    source = $("#writer").val()
+    parseSource(source);
     displaySection(currentSection);
+}
+
+function downloadEditorSource() {
+    var element = document.createElement('a');
+
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(source));
+    element.setAttribute('download', title + ".md");
+    element.style.display = 'none';
+
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
 }
 
 // Core (Parser) functions.
