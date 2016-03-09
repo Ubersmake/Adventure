@@ -4,6 +4,28 @@ html, body {
     padding: 0;
 }
 
+#header {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    padding: 1em;
+}
+
+#header a {
+    color: #212121;
+}
+
+#header #options {
+    min-width: 200px;
+    float: left;
+}
+
+#header #notice {
+    min-width: 400px;
+    text-align: right;
+}
+
 #outerwrapper {
 	height: 100%;
     width: 100%;
@@ -48,28 +70,4 @@ html, body {
 
 #editor #links a {
     color: #212121;
-}
-
-#footer {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 1em;
-    padding-left: 10%;
-    padding-right: 10%;
-}
-
-#footer a {
-    color: #212121;
-}
-
-#footer #options {
-    min-width: 200px;
-    float: left;
-}
-
-#footer #notice {
-    min-width: 400px;
-    text-align: right;
 }

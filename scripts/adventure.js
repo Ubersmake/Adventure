@@ -103,12 +103,12 @@ function applyTheme(theme) {
         $("body").css("background-color", "#EEEEEE");
         $("#content").css("color", "#424242");
         $("#content a").css("color", "#212121");
-        $("#footer").css("background-color", "#9E9E9E");
+        $("#header").css("background-color", "#9E9E9E");
     } else if (theme === "dark") {
         $("body").css("background-color", "#212121");
         $("#content").css("color", "#BDBDBD");
         $("#content a").css("color", "#FAFAFA");
-        $("#footer").css("background-color", "#9E9E9E");
+        $("#header").css("background-color", "#9E9E9E");
     }
 }
 
