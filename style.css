@@ -2,20 +2,19 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-
-    min-width: 600px;
 }
 
 #outerwrapper {
 	height: 100%;
     width: 100%;
+
+    min-width: 600px;
 }
 
 #innerwrapper {
     padding-left: 10%;
     padding-right: 10%;
     padding-top: 5%;
-    padding-bottom: 5%;
 
     height: 100%;
     width: 80%;
@@ -29,6 +28,10 @@ html, body {
 
     float: left;
     height: 100%;
+}
+
+#content h1, h2, h3, h4, h5, h6 {
+    line-height: 125%;
 }
 
 #editor {
@@ -51,7 +54,8 @@ html, body {
     bottom: 0;
     padding: 1em;
 
-    color: #424242;
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
 #footer a {
@@ -60,8 +64,10 @@ html, body {
 
 #footer #options {
     float: left;
+    min-width: 200px;
 }
 
 #footer #notice {
+    min-width: 400px;
     text-align: right;
 }
