@@ -120,7 +120,11 @@ function initializeEditor() {
 
     // Make the editor useful.
     $("#writer").bind("input propertychange", function() {
-        updateEditor();
+        window.clearTimeout($(this).data("timeout"));
+
+        $(this).data("timeout", setTimeout(function () {
+            updateEditor();
+        }, 1000));
     });
 
     // Add the source to the editor.
