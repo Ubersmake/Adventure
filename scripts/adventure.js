@@ -70,9 +70,46 @@ function displaySection(name) {
         html = html.replace(/<h1>.+<\/h1>/, "");
     }
 
+    html = displayDecisions(html);
+
     $("#content").html(html.trim());
     applyType(type);
     applyTheme(theme);
+}
+
+function displayDecisions(html) {
+    // Change html based on previous decisions.
+    var htmlNodes = $($.parseHTML(html));
+
+    var decisions = $(".decisions", htmlNodes);
+
+    for (var i = 0; i < decisions.length; i++) {
+        var requiredChoices = $($(".decisions", htmlNodes).get(i)).attr("decisions").split(",");
+
+        var matches = 0;
+        for (var j = 0; j < choices.length; j++) {
+            if (requiredChoices.indexOf(choices[j]) >= 0) {
+                matches++;
+            }
+        }
+
+        if (matches == requiredChoices.length) {
+            var content = $($(".decisions", htmlNodes).get(i)).html();
+            $($(".decisions", htmlNodes).get(i)).replaceWith("<p>" + content + "</p>");
+        } else {
+            $($(".decisions", htmlNodes).get(i)).replaceWith("");
+        }
+
+        i--;
+        decisions = $(".decisions", htmlNodes);
+    }
+
+    var scaffold = document.createElement("div");
+    for (var i = 0; i < htmlNodes.length; i++) {
+        scaffold.appendChild(htmlNodes[i]);
+    }
+
+    return scaffold.innerHTML;
 }
 
 function applyType(type) {
@@ -235,6 +272,8 @@ function parseStory(data) {
     return branches;
 }
 
+// Pre-processing for choice: and decisions:.
+// Gets all links to open in a new tab or window.
 function parseBranchLinks(branch) {
     for (var i = 0; i < branch.length; i++) {
         if (branch[i].length > 0 && branch[i][0] === "link") {
@@ -243,7 +282,13 @@ function parseBranchLinks(branch) {
             if (attributes["href"].substring(0, 7) === "choice:") {
                 var choice = attributes["href"].substring(7);
                 branch[i][1]["href"] = "#choice";
+                branch[i][1]["class"] = "choice";
                 branch[i][1]["choice"] = choice;
+            } else if (attributes["href"].substring(0, 10) === "decisions:") {
+                var decisions = attributes["href"].substring(10);
+                branch[i][1]["href"] = "#decision";
+                branch[i][1]["class"] = "decisions";
+                branch[i][1]["decisions"] = decisions;
             } else {
                 branch[i][1]["target"] = "_blank";
             }

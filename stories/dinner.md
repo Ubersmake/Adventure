@@ -41,6 +41,10 @@ It's a small place. The neighborhood is rough, but nice enough. The couple acros
 
 It's been some time since you moved in. Yesterday, it didn't seem any different. A studio with clothes across the floor, a bed perpetually unmade, and a sink full of dirty dishes. This evening, it's a little more civilized.
 
+[You thought it'd be nice to make some spaghetti tonight.](decisions:Studio,Spaghetti)
+
+[You thought it'd be nice to make some fettucine tonight.](decisions:Fettucine)
+
 [Dinner for two.](choice:Sauce)
 
 # Sauce
