@@ -9,7 +9,7 @@ html, body {
     left: 0;
     right: 0;
     top: 0;
-    padding: 1em;
+    padding: 0.75em;
 }
 
 #header a {
@@ -46,6 +46,7 @@ html, body {
     float: left;
     font-size: 150%;
     line-height: 150%;
+    padding-top: 1em;
 }
 
 #content h1, h2, h3, h4, h5, h6 {
@@ -56,6 +57,7 @@ html, body {
     height: 100%;
     width: 40%;
     float: right;
+    padding-top: 3em;
 }
 
 #editor #writer {

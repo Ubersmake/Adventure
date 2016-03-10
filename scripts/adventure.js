@@ -73,6 +73,8 @@ function displaySection(name) {
     html = displayDecisions(html);
 
     $("#content").html(html.trim());
+    // Remove empty tags left behind from decision rendering.
+    $("#content :empty").remove();
     applyType(type);
     applyTheme(theme);
 }
