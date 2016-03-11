@@ -42,6 +42,12 @@ $(document).ready(function() {
         applyTheme(theme);
     });
 
+    // Handler for edit link
+    $(document).on("click", "#header #options #edit", function(event) {
+        event.preventDefault();
+        toggleEditor();
+    });
+
     // "Back" handlers.
     window.onbeforeunload = function() {
         handleBack();
@@ -49,11 +55,6 @@ $(document).ready(function() {
 
     window.onhashchange = function() {
         handleBack();
-    }
-
-    // Show or hide editor.
-    if (getURLParam("edit") === "true") {
-        edit = true;
     }
 
     // Get and display story.
@@ -153,10 +154,6 @@ function applyTheme(theme) {
 
 // Editor functions
 function initializeEditor() {
-    // Show the editor.
-    $("#content").css("width", "50%");
-    $("#editor").show();
-
     // Make the editor useful.
     $("#writer").bind("input propertychange", function() {
         window.clearTimeout($(this).data("timeout"));
@@ -174,6 +171,17 @@ function initializeEditor() {
         event.preventDefault();
         downloadEditorSource();
     });
+}
+
+function toggleEditor() {
+    if ($("#editor").is(":visible")) {
+        $("#content").css("width", "100%");
+        $("#editor").hide();
+    } else {
+        $("#content").css("width", "50%");
+        $("#editor").show();
+    }
+
 }
 
 function updateEditor() {
@@ -219,10 +227,8 @@ function getStory() {
         displaySection(title);
 
         // Do this here. Don't grab the source twice.
-        if (edit) {
-            source = data;
-            initializeEditor();
-        }
+        source = data;
+        initializeEditor();
     });
 }
 
