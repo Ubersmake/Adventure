@@ -26,9 +26,7 @@ Adventure treats Markdown as Markdown. However, it requires the following change
 
 ### Editor
 
-* Deal with H1s. Either lock section names, or figure out how to make them mutable without breaking things.
-
-* Deal with extremely long, Aeneid-length sources.
+* Deal with H1s. Either lock section names, or figure out how to make them mutable without breaking things. And deal with extremely long, Aeneid-length sources. Figuring out a better live editing solution will solve a lot of problems.
 
 * Publish current source to packaged file, including HTML and all necessary JS.
 
