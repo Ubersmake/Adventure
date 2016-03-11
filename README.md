@@ -24,11 +24,13 @@ Adventure treats Markdown as Markdown. However, it requires the following change
 
 * Create How To documentation.
 
+### Core
+
+* Support reading local files (for relatively recent browsers).
+
 ### Editor
 
 * Deal with H1s. Either lock section names, or figure out how to make them mutable without breaking things. And deal with extremely long, Aeneid-length sources. Figuring out a better live editing solution will solve a lot of problems.
-
-* Publish current source to packaged file, including HTML and all necessary JS.
 
 ### Validator
 
