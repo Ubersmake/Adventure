@@ -3,15 +3,18 @@ var sections = [];
 var currentSection;
 var choices = [];
 
-var edit = false;
 var source;
+var filesSupported;
 
 var type = "serif";
 var theme = "light";
 
 // Initialize Adventure.
-
 $(document).ready(function() {
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+        filesSupported = true;
+    }
+
     // Do not allow hashes on first load.
     if (window.location.hash) {
         window.location.hash = "";
@@ -47,6 +50,14 @@ $(document).ready(function() {
         event.preventDefault();
         toggleEditor();
     });
+
+    // Handler for load link
+    if (filesSupported) {
+        $("#header #options #load").css("visibility", "visible");
+        $(document).on("change", "#header #options #load", function(event) {
+            loadStoryFromFile(event);
+        });
+    }
 
     // "Back" handlers.
     window.onbeforeunload = function() {
@@ -158,15 +169,22 @@ function initializeEditor() {
     $("#writer").bind("input propertychange", function() {
         window.clearTimeout($(this).data("timeout"));
 
+        // Make the editor less brittle for long stories.
         $(this).data("timeout", setTimeout(function () {
             updateEditor();
-        }, 1000));
+        }, 500));
     });
 
     // Add the source to the editor.
     $("#writer").text(source);
 
-    // Handler for the download link.
+    // Handler for publish link.
+    $(document).on("click", "#editor #links #publish", function(event) {
+        event.preventDefault();
+        publishEditorSource();
+    });
+
+    // Handler for download link.
     $(document).on("click", "#editor #links #download", function(event) {
         event.preventDefault();
         downloadEditorSource();
@@ -181,13 +199,27 @@ function toggleEditor() {
         $("#content").css("width", "50%");
         $("#editor").show();
     }
-
 }
 
 function updateEditor() {
-    source = $("#writer").val()
+    source = $("#writer").val();
     parseSource(source);
     displaySection(currentSection);
+}
+
+function publishEditorSource() {
+    var element = document.createElement('a');
+
+    element.setAttribute('href', 'data:application/javascript;charset=utf-8,' +
+        encodeURIComponent("var story = ") +
+        encodeURIComponent(JSON.stringify(source)) +
+        encodeURIComponent(";"));
+    element.setAttribute('download', "story.js");
+    element.style.display = 'none';
+
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
 }
 
 function downloadEditorSource() {
@@ -203,33 +235,57 @@ function downloadEditorSource() {
 }
 
 // Core (Parser) functions.
+// Stories have Sections, which are defined by H1s.
+// Trees have Branches, which are populated with Bundles.
+// Tree-related terminology is only used when processing text.
 function getStory() {
-    // Default to "./stories/adventure.md".
-    var storyPath = "./stories/";
-    var story = "";
+    // Default to "story" defined in ./scripts/story.js
+    if (story) {
+        initializeStory(story);
+    } else {
+        var storyPath = "./stories/";
+        var storyFile = "";
 
-    story = getURLParam("story");
+        // Check the "story" URL parameter.
+        storyFile = getURLParam("story");
 
-    if (!story) {
-        story = "adventure";
+        // Fall back to ./stories/adventure.md
+        if (!storyFile) {
+            storyFile = "adventure";
+        }
+
+        storyPath = storyPath + storyFile + ".md";
+
+        $.get(storyPath, function(data) {
+            initializeStory(data);
+        });
     }
+}
 
-    storyPath = storyPath + story + ".md";
+function initializeStory(data) {
+    parseSource(data);
 
-    // Stories have Sections, which are defined by H1s.
-    // Trees have Branches, which are populated with Bundles.
-    // Tree-related terminology is only used when processing text.
-    $.get(storyPath, function(data) {
-        parseSource(data);
+    document.title = title;
+    currentSection = title;
+    displaySection(title);
 
-        document.title = title;
-        currentSection = title;
-        displaySection(title);
+    // Do this here. Don't grab the source twice.
+    source = data;
+    initializeEditor();
+}
 
-        // Do this here. Don't grab the source twice.
-        source = data;
-        initializeEditor();
-    });
+function loadStoryFromFile(event) {
+    var file = event.target.files[0];
+    var contents;
+
+    if (file) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+             contents = e.target.result;
+             initializeStory(contents);
+        }
+        reader.readAsText(file);
+    }
 }
 
 function parseSource(data) {

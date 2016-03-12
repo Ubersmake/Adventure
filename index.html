@@ -3,12 +3,10 @@
 <head>
 <title>Adventure</title>
 <link href="./style.css" rel="stylesheet"></link>
-<!-- For "1.0"
-<script src="./scripts/jquery-1.12.1.min.js"></script>
-<script src="./scripts/markdown.min.js"></script>
--->
 <script src="./scripts/jquery-1.12.1.js"></script>
 <script src="./scripts/markdown.js"></script>
+
+<script src="./stories/story.js"></script>
 <script src="./scripts/adventure.js"></script>
 </head>
 <body>
@@ -26,6 +24,7 @@
                 <option value="dark">Dark</option>
             </select>
             <a id="edit" href="">Edit</a>
+            <input id="load" type="file" style="visibility: hidden;"></input>
         </div>
         <div id="notice">
             <a href="https://github.com/ubersmake/adventure" target="_blank">Adventure</a>. Powered by <a href="https://github.com/evilstreak/markdown-js" target="_blank">markdown-js</a> and <a href="https://jquery.com/" target="_blank">jQuery</a>.
@@ -37,6 +36,7 @@
             <textarea id="writer"></textarea>
             <p/>
             <div id="links">
+                <a id="publish" href="">Publish to JS</a>
                 <a id="download" href="">Download</a>
             </div>
         </div>

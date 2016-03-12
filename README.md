@@ -26,7 +26,7 @@ Adventure treats Markdown as Markdown. However, it requires the following change
 
 ### Core
 
-* Support reading local files (for relatively recent browsers).
+* Make the "load external file" experience more elegant.
 
 ### Editor
 
