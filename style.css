@@ -72,4 +72,5 @@ html, body {
 
 #editor #links a {
     color: #212121;
+    padding-left: 0.25em;
 }

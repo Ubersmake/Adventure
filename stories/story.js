@@ -1,1 +1,1 @@
-var story;
+var story = "";

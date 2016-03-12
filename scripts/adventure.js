@@ -165,7 +165,13 @@ function initializeEditor() {
     // Add the source to the editor.
     $("#writer").text(source);
 
-    // Handler for the download link.
+    // Handler for publish link.
+    $(document).on("click", "#editor #links #publish", function(event) {
+        event.preventDefault();
+        publishEditorSource();
+    });
+
+    // Handler for download link.
     $(document).on("click", "#editor #links #download", function(event) {
         event.preventDefault();
         downloadEditorSource();
@@ -183,9 +189,24 @@ function toggleEditor() {
 }
 
 function updateEditor() {
-    source = $("#writer").val()
+    source = $("#writer").val();
     parseSource(source);
     displaySection(currentSection);
+}
+
+function publishEditorSource() {
+    var element = document.createElement('a');
+
+    element.setAttribute('href', 'data:application/javascript;charset=utf-8,' +
+        encodeURIComponent("var story = ") +
+        encodeURIComponent(JSON.stringify(source)) +
+        encodeURIComponent(";"));
+    element.setAttribute('download', "story.js");
+    element.style.display = 'none';
+
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
 }
 
 function downloadEditorSource() {
