@@ -3,14 +3,12 @@ var sections = [];
 var currentSection;
 var choices = [];
 
-var edit = false;
 var source;
 
 var type = "serif";
 var theme = "light";
 
 // Initialize Adventure.
-
 $(document).ready(function() {
     // Do not allow hashes on first load.
     if (window.location.hash) {
@@ -158,9 +156,10 @@ function initializeEditor() {
     $("#writer").bind("input propertychange", function() {
         window.clearTimeout($(this).data("timeout"));
 
+        // Make the editor less brittle for long stories.
         $(this).data("timeout", setTimeout(function () {
             updateEditor();
-        }, 1000));
+        }, 500));
     });
 
     // Add the source to the editor.
@@ -181,7 +180,6 @@ function toggleEditor() {
         $("#content").css("width", "50%");
         $("#editor").show();
     }
-
 }
 
 function updateEditor() {
@@ -203,33 +201,43 @@ function downloadEditorSource() {
 }
 
 // Core (Parser) functions.
+// Stories have Sections, which are defined by H1s.
+// Trees have Branches, which are populated with Bundles.
+// Tree-related terminology is only used when processing text.
 function getStory() {
-    // Default to "./stories/adventure.md".
-    var storyPath = "./stories/";
-    var story = "";
+    // Default to "story" defined in ./scripts/story.js
+    if (story) {
+        initializeStory(story);
+    } else {
+        var storyPath = "./stories/";
+        var storyFile = "";
 
-    story = getURLParam("story");
+        // Check the "story" URL parameter.
+        storyFile = getURLParam("story");
 
-    if (!story) {
-        story = "adventure";
+        // Fall back to ./stories/adventure.md
+        if (!storyFile) {
+            storyFile = "adventure";
+        }
+
+        storyPath = storyPath + storyFile + ".md";
+
+        $.get(storyPath, function(data) {
+            initializeStory(data);
+        });
     }
+}
 
-    storyPath = storyPath + story + ".md";
+function initializeStory(data) {
+    parseSource(data);
 
-    // Stories have Sections, which are defined by H1s.
-    // Trees have Branches, which are populated with Bundles.
-    // Tree-related terminology is only used when processing text.
-    $.get(storyPath, function(data) {
-        parseSource(data);
+    document.title = title;
+    currentSection = title;
+    displaySection(title);
 
-        document.title = title;
-        currentSection = title;
-        displaySection(title);
-
-        // Do this here. Don't grab the source twice.
-        source = data;
-        initializeEditor();
-    });
+    // Do this here. Don't grab the source twice.
+    source = data;
+    initializeEditor();
 }
 
 function parseSource(data) {
