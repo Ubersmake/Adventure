@@ -28,6 +28,10 @@ Adventure treats Markdown as Markdown. However, it requires the following change
 
 * Support reading local files (for relatively recent browsers).
 
+* Load default story from JS file.
+
+* Export story in editor to JS file. This, along with instructions, should be enough for users to create their own distributables.
+
 ### Editor
 
 * Deal with H1s. Either lock section names, or figure out how to make them mutable without breaking things. And deal with extremely long, Aeneid-length sources. Figuring out a better live editing solution will solve a lot of problems.
