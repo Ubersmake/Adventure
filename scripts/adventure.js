@@ -4,12 +4,17 @@ var currentSection;
 var choices = [];
 
 var source;
+var filesSupported;
 
 var type = "serif";
 var theme = "light";
 
 // Initialize Adventure.
 $(document).ready(function() {
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+        filesSupported = true;
+    }
+
     // Do not allow hashes on first load.
     if (window.location.hash) {
         window.location.hash = "";
@@ -45,6 +50,15 @@ $(document).ready(function() {
         event.preventDefault();
         toggleEditor();
     });
+
+    // Handler for load link
+    if (filesSupported) {
+        $("#header #options #load").show();
+        $(document).on("change", "#header #options #load", function(event) {
+            // event.preventDefault();
+            loadStoryFromFile(event);
+        });
+    }
 
     // "Back" handlers.
     window.onbeforeunload = function() {
@@ -259,6 +273,20 @@ function initializeStory(data) {
     // Do this here. Don't grab the source twice.
     source = data;
     initializeEditor();
+}
+
+function loadStoryFromFile(event) {
+    var file = event.target.files[0];
+    var contents;
+
+    if (file) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+             contents = e.target.result;
+             initializeStory(contents);
+        }
+        reader.readAsText(file);
+    }
 }
 
 function parseSource(data) {
