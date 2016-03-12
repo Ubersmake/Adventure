@@ -53,9 +53,8 @@ $(document).ready(function() {
 
     // Handler for load link
     if (filesSupported) {
-        $("#header #options #load").show();
+        $("#header #options #load").css("visibility", "visible");
         $(document).on("change", "#header #options #load", function(event) {
-            // event.preventDefault();
             loadStoryFromFile(event);
         });
     }
