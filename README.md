@@ -20,10 +20,6 @@ Adventure treats Markdown as Markdown. However, it requires the following change
 
 ## To Do
 
-* A better "Hello World" example.
-
-* Create How To documentation.
-
 ### Core
 
 * Make the "load external file" experience more elegant.
