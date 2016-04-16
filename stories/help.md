@@ -1,81 +1,110 @@
 # Help!
-## A Guide to AdventureJS
+## A Guide to Adventure
 
 Don't panic.
 
-You've arrived at the beginning of a story written to help people who need help with AdventureJS. Or who want to know more about AdventureJS. Or who arrived after clicking on a link somewhere on the Internet, and are now breathing a sigh of relief that they weren't transported to one of the more terrible, sketchier locales out there.
+This is a story written for people who'd like some help with Adventure. Or who simply want to know more about Adventure. Or who arrived here after clicking on a link, and are now breathing a sigh of relief that they weren't transported to one of the more terrible places on the Internet.
 
-AdventureJS is a framework/engine/thing for writing Choose Your Own Adventure-styled stories.
+Adventure is a framework/engine/thing for writing Choose Your Own Adventure-styled stories.
 
-[Would you like to know more?](choice:Choose Your Own Adventure)
-[I'd like to get started right away.](choice:Markdown)
+[> Would you like to know more?](choice:Choose Your Own Adventure)
+
+[> I'd like to get started right away.](choice:Markdown)
 
 # Choose Your Own Adventure
 
-Back in grade school, the school library stocked, well, what libraries tend to stock. Books. And the books that were consistently always checked out, that had a long list of dates written in pen on a revolving set of cards, were books from the [Choose Your Own Adventure](https://en.wikipedia.org/wiki/Choose_Your_Own_Adventure) series.
+Back in grade school, my school library stocked, well, what libraries tend to stock. Books. And the books that were consistently always checked out, that you'd eventually find on a shelf with some luck, which flaunted a long list of dates written in pen on a revolving set of checkout cards, were books from the [Choose Your Own Adventure](https://en.wikipedia.org/wiki/Choose_Your_Own_Adventure) series.
 
-Choose Your Own Adventure books presented a story with narrative choices. Upon arriving at a choice, the reader would turn to one page, or another page, in order to continue the story with that decision.
+Choose Your Own Adventure books present a story with narrative choices. Upon arriving at a choice, the reader is asked to turn to one page or another in order to continue the story. A well written story would make those decisions meaningful.
 
-The formula has endured. Decades later, people created things like [Twine](https://twinery.org/), and [Choice of Games](https://www.choiceofgames.com/) has developed [ChoiceScript](https://www.choiceofgames.com/make-your-own-games/choicescript-intro/) for writers looking to create stories driven by decisions.
+The formula has endured. Decades later, people created wonderful things like [Twine](https://twinery.org/). [Choice of Games](https://www.choiceofgames.com/), a developer and publisher of interactive stories, has released [ChoiceScript](https://www.choiceofgames.com/make-your-own-games/choicescript-intro/) to writers looking to create similar decision-driven narratives.
 
-AdventureJS is similar. It allows for a story to be written, and for choices to be woven into the narrative. Where it differs is in how stories are written. AdventureJS uses [Markdown](choice:Markdown).
+Adventure is similar to these. It was created to make interactive stories easy to write. Where it differs from Twine and ChoiceScript is in how stories are written.
+
+[> Adventure uses Markdown](choice:Markdown).
 
 # Markdown
 
-[Author's note: A previous version of AdventureJS used XML. From a technical perspective, XML is easy to parse. There are so many tools that do it, and do it well. But I was already using Markdown for my own writing. Why not use it for AdventureJS?](decisions:Choose Your Own Adventure)
-
-[Markdown](https://daringfireball.net/projects/markdown/) was developed by John Gruber. Practically speaking, it allows for an easy transformation of plain text to HTML. But on a much higher level, it gives plain text some structure and much-needed formatting.
+[Markdown](https://daringfireball.net/projects/markdown/) was developed by John Gruber. Its most practical application is allowing for the easy transformation of plain text to HTML. But on a much higher level, it gives plain text structure and much-needed formatting.
 
 Coupled with the right text editor, it makes writing in plain text downright wonderful.
 
-AdventureJS uses Markdown because Markdown makes sense when writing prose. There is no need to format things for choices. There is no need to learn something completely new in order to write text. [But AdventureJS makes some modifications to Markdown's syntax in order to present choices and the consequences of decisions to the reader](choice:Editing).
+Adventure uses Markdown because Markdown makes sense when writing prose. There is no need to remember the particulars of formatting for choices. There is no need to learn something completely new in order to write stories.
+
+[> However, Adventure makes some modifications to Markdown's syntax in order to present choices and the consequences of decisions to the reader](choice:Editing).
 
 # Editing
 
-Before we get any further, if you're on a laptop or desktop, or perhaps a very large tablet, go ahead and click on the Edit link in the header. If you're on a phone, or even a large phablet, you could still click on that, but there are no guarantees on what will happen.
+Before we get any further, if you're on a laptop or desktop, or perhaps a very large tablet, go ahead and click on the Edit link in the header. If you're on a phone, or even a large phablet, there are no guarantees on what will happen.
 
-Once you do, you should see this story on the right side of the display. But you'll see all of it in plain text. This way, you can follow along and [see how AdventureJS uses Markdown to present stories](choice:AdventureJS Markdown).
+Once you do, you should see this story on the right side of the page, but you'll see all of it in plain text. This is this particular story's source in Markdown-formatted plain text.
 
-# AdventureJS Markdown
+[> With this open, you can follow along and see how Adventure uses Markdown to present stories](choice:Adventure Markdown).
 
-AdventureJS has some particular formatting rules. The first is that the first H1 will always be displayed. This is used for the title page, the first page to be shown when a reader loads a story.
+# Adventure Markdown
 
-After this, H1s are not displayed. They are instead used as "anchors" for choices. When a choice is presented, that choice will take a reader to a section, where sections are defined by and named with H1s.
+Adventure has some particular syntax rules.
 
-AdventureJS makes use of Markdown's [links](https://daringfireball.net/projects/markdown/syntax#link) to provide choices and to show their consequences. It does this by parsing out the URL provided for links. AdventureJS watches out for URLs that start with `choice:` or `decisions:`, as opposed to `http:` or `https:`, and [uses these for Choices and Decisions, respectively](choice:Choices and Decisions).
+## Sections
 
-# Choices and Decisions
+The first H1 will always be displayed. This is used for the title page, the first page shown when a reader loads a story.
 
-## Choices
+After the first H1, H1s are **not** displayed. They are instead used as "anchors" for choices. They can be considered as something akin to chapter titles. Adventure calls these "Sections." They are names for each single page that can be shown to the reader. When a choice is presented, that choice will take a reader to a section.
+
+While there are no restrictions on section names, they *shouldn't* have commas, if only to prevent issues with Decisions.
+
+## Choices and Decisions
+
+Adventure makes use of Markdown's [links](https://daringfireball.net/projects/markdown/syntax#link) to provide choices and to show their consequences. It does this by parsing out the URL provided for links. Adventure watches out for URLs that start with `choice:` or `decisions:`, as opposed to `http:` or `https:`, and uses these for Choices and Decisions, respectively.
+
+### Choices
 
 Choices are formatted similar to links:
 
-`[This is a choice.](choice:A good choice.)`
-`[This is another choice.](choice:A not so good choice.)`
+`[This is a choice.](choice:A good choice)`
 
-When the reader is presented with this, they are given a link. Clicking on either link will take them to the section named after `choice:`. It's important to remember that the name must match, cases, spaces, punctuations, and all.
 
-## Decisions
+`[This is another choice.](choice:A not so good choice)`
+
+When the reader is presented with a choice, they are given a link. Going through either link will take them to the section named after `choice:`. It's important to remember that the name must match, cases, spaces, punctuations, and all.
+
+### Decisions
 
 Decisions are formatted similar to Choices, which are formatted similar to links.
 
-`[You made a good decision.](decisions:A good choice.)`
-`[You made a questionable decision.](decisions:A not so good choice.)`
+`[You made a good decision.](decisions:A good choice)`
 
-Decisions show up based on which **sections** a reader has visited, and by extension, which choices a reader has made. But decisions aren't just limited to a single choice.
+
+`[You made a questionable decision.](decisions:A not so good choice)`
+
+Decisions show up based on which **Sections** a reader has visited, and by extension, which choices a reader has made. But decisions aren't limited to a single choice.
 
 `[Choices were made](decisions:Choice A,Choice B,Choice C)`
 
-Here, the text "Choices were made" will only show up if the reader has done something to visit the sections for Choice A, Choice B, **and** Choice C. If any one of those was not visited, this text will not show up. Also note the lack of spacing between commas.
+Here, the text "Choices were made" will only show up if the reader has done something to visit the Sections titled "Choice A", "Choice B", **and** "Choice C". If any one of these was **not** visited, this text will not show up. Do note the lack of spacing between commas.
+
+If you chose "Would you like to know more?" at the very beginning of this story, there will be some text below. This is an example of how decisions are implemented.
+
+[As an aside, the predecessor to Adventure used XML. From a technical perspective, XML is easy to use. There are so many tools that parse it, and parse it well. But I was already using Markdown for my own writing. Why not use it for Adventure?](decisions:Choose Your Own Adventure)
 
 ## One More Thing
 
-You've made it this far. [There's just one thing left](choice:In Conclusion).
+[> You've made it this far. There's just one thing left](choice:In Conclusion).
 
 # In Conclusion
 
 Hopefully, this has been enough to get you started with writing your own Choose Your Own Adventure-styled interactive stories.
 
-For more information, visit the [GitHub page for AdventureJS](https://github.com/Ubersmake/Adventure).
+Here are some suggestions for creating great (interactive) stories:
 
-You've made it to the end. Congratulations!
+* It *may* help to make choices apparent. This story has many links to other pages scattered throughout. Choices always appear at the bottom of each page for this reason. They also appear with a ">" to further distinguish them from other links. It's up to you as a writer to decide how to best present choices.
+
+* Remember that interactive stories make choice matter. There are very legitimate reasons to make the consequences of choices moot. But even in this scenario, choices still matter. They are never arbitrary.
+
+* "Choice" can be used as a way to control the pace of a story's presentation, as the reader will only be shown the text for a single section at any time.
+
+* While Adventure was created for interactive stories, it can be just as easily  used to create non-interactive stories.
+
+For more information, visit the [GitHub page for Adventure](https://github.com/Ubersmake/Adventure).
+
+You've made it to the end. Congratulations! However you choose to write, and whatever you choose to write about, I wish you the best.
