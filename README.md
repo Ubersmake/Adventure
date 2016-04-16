@@ -22,11 +22,17 @@ Adventure treats Markdown as Markdown. However, it requires the following change
 
 ### Core
 
-* Make the "load external file" experience more elegant.
+* Make the "load external file" experience more elegant. Use a modal after the "Load" link.
+
+* Add functionality for notifications (not desktop notifications). Can be used to notify the user of things like successfully (or unsuccessfully) loaded stories, and errors with the live editor.
+
+* Redesign the header to look less like a list of random options.
 
 ### Editor
 
-* Deal with H1s. Either lock section names, or figure out how to make them mutable without breaking things. And deal with extremely long, Aeneid-length sources. Figuring out a better live editing solution will solve a lot of problems.
+* Deal with H1s. Either lock section names, or figure out how to make them mutable without breaking things.
+
+* Deal with extremely long, Aeneid-length sources.
 
 ### Validator
 
