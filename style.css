@@ -63,6 +63,7 @@ html, body {
 
 #editor #writer {
     height:80%;
+    min-height: 800px;
     width:100%;
     resize: none;
 }
