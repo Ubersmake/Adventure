@@ -2,9 +2,11 @@
   "name": "adventure",
   "version": "2.0.0-0.0.1",
   "description": "A Markdown-driven, Choose Your Own Adventure-inspired, interactive story engine.",
+  "type": "module",
   "scripts": {
-    "build": "npm test && tsc --project ./src/tsconfig.json",
+    "build": "tsc --project ./src/tsconfig.json",
     "clean": "rm -rf ./dist",
+    "lint": "eslint .",
     "test": "jest --config ./src/jest.config.ts"
   },
   "repository": {
