@@ -3,6 +3,10 @@
     "module": "commonjs",
     "outDir": "../dist",
   },
+  "exclude": [
+    "**/*.config.*",
+    "**/*.test.ts"
+  ],
   "module": "commonjs",
   "ts-node": {
     "transpileOnly": true,
