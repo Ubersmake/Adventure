@@ -1,18 +1,15 @@
-{ 
+{
   "compilerOptions": {
     "module": "commonjs",
-    "outDir": "../dist",
+    "outDir": "../dist"
   },
-  "exclude": [
-    "**/*.config.*",
-    "**/*.test.ts"
-  ],
+  "exclude": ["**/*.config.*", "**/*.test.ts"],
   "module": "commonjs",
   "ts-node": {
     "transpileOnly": true,
     "files": true,
     "compilerOptions": {
-      "module": "commonjs",
+      "module": "commonjs"
     }
   }
 }
