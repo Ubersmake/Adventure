@@ -1,5 +1,3 @@
-const hello = (subject: string): string => {
+export function hello(subject: string): string {
   return `Hello, ${subject}!`;
 }
-
-console.log(hello('world'));

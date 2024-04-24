@@ -1,5 +1,14 @@
-{
+{ 
   "compilerOptions": {
-    "outDir": "../dist"
+    "module": "commonjs",
+    "outDir": "../dist",
+  },
+  "module": "commonjs",
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true,
+    "compilerOptions": {
+      "module": "commonjs",
+    }
   }
 }

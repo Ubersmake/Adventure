@@ -3,8 +3,9 @@
   "version": "2.0.0-0.0.1",
   "description": "A Markdown-driven, Choose Your Own Adventure-inspired, interactive story engine.",
   "scripts": {
-    "build": "tsc -p ./src/tsconfig.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm test && tsc --project ./src/tsconfig.json",
+    "clean": "rm -rf ./dist",
+    "test": "jest --config ./src/jest.config.ts"
   },
   "repository": {
     "type": "git",
@@ -18,8 +19,10 @@
   "homepage": "https://github.com/Ubersmake/Adventure#readme",
   "devDependencies": {
     "@eslint/js": "^9.1.1",
+    "@types/jest": "^29.5.12",
     "eslint": "^8.57.0",
     "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.7.1"
   }
