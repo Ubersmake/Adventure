@@ -1,7 +1,8 @@
 # Dinner for Two
+
 ## By Paul Morales
 
-*Dinner for Two* is an introductory story for Adventure, a tool for creating [Choose Your Own Adventure](https://en.wikipedia.org/wiki/Choose_Your_Own_Adventure)-styled interactive stories.
+_Dinner for Two_ is an introductory story for Adventure, a tool for creating [Choose Your Own Adventure](https://en.wikipedia.org/wiki/Choose_Your_Own_Adventure)-styled interactive stories.
 
 For more information, visit the [GitHub page for Adventure](https://github.com/Ubersmake/Adventure), or read the [Help story](?story=help).
 
