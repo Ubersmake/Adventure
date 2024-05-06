@@ -30,5 +30,9 @@
     "ts-jest": "^29.1.2",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.7.1"
+  },
+  "dependencies": {
+    "@types/markdown-it": "^14.1.1",
+    "markdown-it": "^14.1.0"
   }
 }
