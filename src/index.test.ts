@@ -1,10 +1,6 @@
-import { hello, parseFile } from './index';
+import { parseFile } from './index';
 
 const source = './src/dinnerfortwo.md';
-
-test('Hello, world!', () => {
-  expect(hello('world')).toBe('Hello, world!');
-});
 
 describe('Parse File', () => {
   test('File exists', () => {

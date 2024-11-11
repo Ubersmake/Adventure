@@ -1,10 +1,6 @@
 import { readFileSync } from 'fs';
 import * as MarkdownIt from 'markdown-it';
 
-export function hello(subject: string): string {
-  return `Hello, ${subject}!`;
-}
-
 export function parseFile(file: string): MarkdownIt.Token[] {
   const md = MarkdownIt();
 
