@@ -1,34 +1,65 @@
 import { readFileSync } from 'fs';
 import * as MarkdownIt from 'markdown-it';
 
+interface Element {
+  tag: string;
+  content: string;
+}
+
 /**
- * Parses a file.
+ * Parses a file. Tokenizes data from a Markdown file.
+ * Then converts those tokens into more easily digestible Elements.
+ * Then separates those Elements into groups of "pages."
  *
  * TODO: Validation.
  * 
  * @param {string} file Path to a file.
- * @returns {MarkdownIt.Token[][]} An array of MarkdownIt.Token[]. The top-level array separates groups of MarkdownIt.Token[] by the H1 element.
+ * @returns {Element[][]} An array of Element[]. The top-level array separates
+ *                        groups of Element[] into "pages" by the H1 tag.
  */
-export function parseFile(file: string): MarkdownIt.Token[][] {
+export function parseFile(file: string): Element[][] {
   const md = MarkdownIt();
+  const fileContent = readFileSync(file).toString();
+  const tokens = md.parse(fileContent, {});
 
-  const content = readFileSync(file).toString();
+  // Convert MarkdownIt.Token[] to Element[]
+  const elements: Element[] = [];
 
-  const tokens = md.parse(content, {});
-  const sections: MarkdownIt.Token[][] = [];
+  let tag = '';
+  let content = '';
 
-  // Separate sections by H1
-  let section: MarkdownIt.Token[] = [];
   tokens.forEach((token) => {
-    if (token.type === 'heading_open' && token.tag === 'h1' && section.length !== 0) {
-      sections.push(section);
-      section = [];
+    if (token.type !== 'inline') {
+      tag = token.tag;
+    } else {
+      content = token.content;
     }
 
-    section.push(token);
+    if (tag && content) {
+      elements.push({tag, content});
+      tag = '';
+      content = '';
+    }
   });
 
-  return sections;
+  // Separate Element[] into Element[][] "pages" by H1
+  const pages: Element[][] = [];
+
+  let page: Element[] = [];
+
+  elements.forEach((element) => {
+    if (page.length !== 0 && element.tag === 'h1') {
+      pages.push(page);
+      page = [];
+    }
+
+    page.push(element);
+  });
+
+  // TODO: Simplify the final case.
+  pages.push(page);
+
+  return pages;
 }
 
 /**
@@ -36,16 +67,16 @@ export function parseFile(file: string): MarkdownIt.Token[][] {
  * 
  * TODO: Definte title page elements as front matter.
  *
- * @param {MarkdownIt.Token[]} data Data parsed from a file.
+ * @param {Element[]} page Data parsed from a file.
  * @returns {string} The title page in HTML.
  */
-export function generateTitlePage(data: MarkdownIt.Token[]): string {
+export function generateTitlePage(page: Element[]): string {
   let title = '';
   let author = '';
   let content = '';
 
-  data.forEach((token) => {
-    console.log(token);
+  page.forEach((element) => {
+    console.log(element);
   });
 
   return '';
@@ -58,8 +89,8 @@ export function generateTitlePage(data: MarkdownIt.Token[]): string {
  * @returns {string}
  */
 export function generateAdventure(file: string): string {
-  const data = parseFile(file);
-  const output = generateTitlePage(data[0]);
+  const pages = parseFile(file);
+  const output = generateTitlePage(pages[0]);
 
   return output;
 }

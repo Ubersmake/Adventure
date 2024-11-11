@@ -21,9 +21,9 @@ describe('Parse File', () => {
 describe('Generate Title Page', () => {
   test('Output from valid file', () => {
     // TODO: Use data provider.
-    const data = parseFile(source);
+    const pages = parseFile(source);
 
-    const output = generateTitlePage(data[0]);
+    const output = generateTitlePage(pages[0]);
 
     expect(output).toBe('');
   });
