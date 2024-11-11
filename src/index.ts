@@ -65,7 +65,7 @@ export function parseFile(file: string): Element[][] {
 /**
  * Outputs HTML for the title page.
  * 
- * TODO: Definte title page elements as front matter.
+ * TODO: Define title page elements as front matter.
  *
  * @param {Element[]} page Data parsed from a file.
  * @returns {string} The title page in HTML.
