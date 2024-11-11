@@ -73,13 +73,28 @@ export function parseFile(file: string): Element[][] {
 export function generateTitlePage(page: Element[]): string {
   let title = '';
   let author = '';
-  let content = '';
+  const content: string[] = [];
 
   page.forEach((element) => {
-    console.log(element);
+    if (element.tag === 'h1') {
+      title = element.content;
+    } else if (element.tag === 'h2') {
+      author = element.content
+    } else
+    content.push(element.content);
   });
 
-  return '';
+  let output = '';
+
+  output += `# ${title}\n`;
+  output += `## By ${author}\n`;
+
+  content.forEach((paragraph) => {
+    output += `${paragraph}\n\n`;
+  })
+
+  const md = MarkdownIt();
+  return md.render(output);
 }
 
 /**

@@ -35,6 +35,7 @@ const sourcePages = [
     },
   ],
 ];
+const sourceTitleHTML = "<h1>Title</h1>\n<h2>By Author</h2>\n<p>Paragraph one.</p>\n<p>Paragraph two.</p>\n";
 
 describe('Parse File', () => {
   test('File exists', () => {
@@ -57,7 +58,7 @@ describe('Generate Title Page', () => {
     const pages = parseFile(source);
     const output = generateTitlePage(pages[0]);
 
-    expect(output).toBe('');
+    expect(output).toStrictEqual(sourceTitleHTML);
   });
 });
 
@@ -65,6 +66,6 @@ describe('Generate Adventure', () => {
   test('Works', () => {
     const output = generateAdventure(source);
 
-    expect(output).toBe('');
+    expect(output).toBeTruthy();
   })
 });
