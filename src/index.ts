@@ -12,7 +12,7 @@ interface Element {
  * Then separates those Elements into groups of "pages."
  *
  * TODO: Validation.
- * 
+ *
  * @param {string} file Path to a file.
  * @returns {Element[][]} An array of Element[]. The top-level array separates
  *                        groups of Element[] into "pages" by the H1 tag.
@@ -36,7 +36,7 @@ export function parseFile(file: string): Element[][] {
     }
 
     if (tag && content) {
-      elements.push({tag, content});
+      elements.push({ tag, content });
       tag = '';
       content = '';
     }
@@ -64,7 +64,7 @@ export function parseFile(file: string): Element[][] {
 
 /**
  * Outputs HTML for the title page.
- * 
+ *
  * TODO: Define title page elements as front matter.
  *
  * @param {Element[]} page Data parsed from a file.
@@ -79,9 +79,8 @@ export function generateTitlePage(page: Element[]): string {
     if (element.tag === 'h1') {
       title = element.content;
     } else if (element.tag === 'h2') {
-      author = element.content
-    } else
-    content.push(element.content);
+      author = element.content;
+    } else content.push(element.content);
   });
 
   let output = '';
@@ -91,7 +90,7 @@ export function generateTitlePage(page: Element[]): string {
 
   content.forEach((paragraph) => {
     output += `${paragraph}\n\n`;
-  })
+  });
 
   const md = MarkdownIt();
   return md.render(output);
@@ -100,7 +99,7 @@ export function generateTitlePage(page: Element[]): string {
 /**
  * Compiles an Adventure from a source Markdown file into static HTML.
  *
- * @param {string} file 
+ * @param {string} file
  * @returns {string}
  */
 export function generateAdventure(file: string): string {
