@@ -80,7 +80,9 @@ export function generateTitlePage(page: Element[]): string {
       title = element.content;
     } else if (element.tag === 'h2') {
       author = element.content;
-    } else content.push(element.content);
+    } else {
+      content.push(element.content);
+    }
   });
 
   let output = '';
