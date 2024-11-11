@@ -1,12 +1,46 @@
 import { parseFile, generateTitlePage, generateAdventure } from './index';
 
-const source = './src/dinnerfortwo.md';
+const source = './src/parse.test.md';
+const sourcePages = [
+  [
+    {
+      tag: "h1",
+      content: "Title",
+    },
+    {
+      tag: "h2",
+      content: "Author",
+    },
+    {
+      tag: "p",
+      content: "Paragraph one.",
+    },
+    {
+      tag: "p",
+      content: "Paragraph two.",
+    },
+  ],
+  [
+    {
+      tag: "h1",
+      content: "Section One",
+    },
+    {
+      tag: "p",
+      content: "Section one, paragraph one.",
+    },
+    {
+      tag: "p",
+      content: "Section two, paragraph two.",
+    },
+  ],
+];
 
 describe('Parse File', () => {
   test('File exists', () => {
     const output = parseFile(source);
 
-    expect(output).toBeTruthy();
+    expect(output).toStrictEqual(sourcePages);
   });
 
   test('File does not exist', () => {
@@ -20,9 +54,7 @@ describe('Parse File', () => {
 
 describe('Generate Title Page', () => {
   test('Output from valid file', () => {
-    // TODO: Use data provider.
     const pages = parseFile(source);
-
     const output = generateTitlePage(pages[0]);
 
     expect(output).toBe('');
